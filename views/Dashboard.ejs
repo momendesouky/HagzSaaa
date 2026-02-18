@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم | الحجوزات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #006d77;
+      --accent: #83c5be;
+      --light-bg: #f4f6f8;
+      --dark-gradient: linear-gradient(to bottom right, #0f172a, #1e293b);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: 'Almarai', sans-serif;
+      margin: 0;
+      background-color: var(--light-bg);
+      color: #333;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark {
+      background: var(--dark-gradient);
+      color: white;
+    }
+
+    nav {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+
+    body.dark nav {
+      background-color: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    body.dark nav h1 {
+      font-size: 1.8rem;
+      color: #00d1ff;
+    }
+
+    body.dark .container h2 {
+      color: #00d1ff;
+    }
+
+    nav a, nav button {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .container {
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    body.dark .container {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .reservation-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    body.dark .reservation-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.01);
+      box-shadow: 0 0 12px rgba(0, 209, 255, 0.3);
+    }
+
+    body.dark nav a:hover {
+      color: #00d1ff;
+      text-decoration: underline;
+    }
+
+    body.dark nav button:hover {
+      color: #00d1ff;
+      transform: scale(1.1);
+    }
+
+    .reservation-card:hover {
+      background-color: #e0fbfc;
+    }
+
+    body.dark .reservation-card {
+      background: var(--glass-bg);
+      color: white;
+      box-shadow: 0 0 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .reservation-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    body.dark .reservation-title {
+      color: #00d1ff;
+    }
+
+    .reservation-date {
+      font-size: 14px;
+      color: #666;
+    }
+
+    body.dark .reservation-date {
+      color: #ccc;
+    }
+
+    .reservation-location {
+      margin-top: 4px;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .actions a,
+    .actions button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      transition: background 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+    }
+
+    .actions a:hover,
+    .actions button:hover {
+      background-color: var(--primary);
+    }
+
+    body.dark .actions a,
+    body.dark .actions button {
+      background-color: #00d1ff;
+    }
+
+    body.dark .actions a:hover,
+    body.dark .actions button:hover {
+      background-color: #0096c7;
+      box-shadow: 0 0 8px #00d1ff;
+      transform: translateY(-2px);
+    }
+
+    .actions form {
+      display: inline;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>Dashboard</h1>
+    <div>
+      <a href="/addHagz">Add Hagz</a>
+      <a href="/fantasy">Fantasy</a>
+      <button id="toggle-dark">🌙</button>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+ <div class="container">
+  <h2 style="text-align: right;">الحجوزات</h2>
+
+  <% if (Hgozat.length === 0) { %>
+    <p style="text-align: center; color: gray; font-size: 1.2rem; margin-top: 2rem;">
+      لا توجد حجوزات حالياً ✨<br>
+      <a href="/addHagz" style="color: var(--primary); text-decoration: underline;">إضافة حجز جديد</a>
+    </p>
+  <% } else { %>
+    <% for (let hagz of Hgozat) { %>
+      <div style="text-align: right;" class="reservation-card" onclick="window.location.href='/hagz/<%= hagz._id %>'">
+        <div class="reservation-title"><%= hagz.name %></div>
+        <div class="reservation-date">📅 التاريخ: <%= new Date(hagz.date).toLocaleDateString("ar-EG") %></div>
+        <div class="reservation-location">📍 الموقع: <%= hagz.location %></div>
+        <div class="actions">
+          <a href="/edit/<%= hagz._id %>">تعديل</a>
+          <form action="/deleteHagz/<%= hagz._id %>" method="post" onsubmit="return confirm('هل أنت متأكد من حذف هذا الحجز؟')">
+            <button onclick="event.stopPropagation()">حذف</button>
+          </form>
+        </div>
+      </div>
+    <% } %>
+  <% } %>
+</div>
+
+  <script>
+    const toggleBtn = document.getElementById('toggle-dark');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark');
+      toggleBtn.textContent = '☀️';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      toggleBtn.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+
+</body>
+</html>

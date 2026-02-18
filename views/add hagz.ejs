@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>إضافة حجز جديد</title>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #006d77;
+      --accent: #83c5be;
+      --light-bg: #f4f6f8;
+      --dark-gradient: linear-gradient(to bottom right, #0f172a, #1e293b);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: 'Almarai', sans-serif;
+      margin: 0;
+      background-color: var(--light-bg);
+      color: #333;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark {
+      background: var(--dark-gradient);
+      color: white;
+    }
+
+    nav {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    body.dark nav h1{
+        color: #00d1ff;
+    }
+
+    body.dark nav {
+      background-color: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    nav a, nav button {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    body.dark .container {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 32px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+
+    body.dark input,
+    body.dark select {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid #555;
+      color: white;
+    }
+
+    button[type="submit"] {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.7rem 2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #004f58;
+    }
+
+    body.dark button[type="submit"]:hover {
+      background-color: #00d1ff;
+    }
+    body.dark nav a:hover {
+  color: #00d1ff;
+  text-decoration: underline;
+}
+
+/* Hover for dark mode nav button */
+body.dark nav button:hover {
+  color: #00d1ff;
+  transform: scale(1.1);
+}
+
+/* Hover for dark mode action buttons */
+body.dark .actions button:hover {
+  background-color: #0096c7;
+  box-shadow: 0 0 8px #00d1ff;
+  transform: translateY(-2px);
+}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>Dashboard</h1>
+    <div>
+      <a href="/">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <button id="toggle-dark">🌙</button>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>إضافة حجز جديد</h2>
+    <form action="/addHagz" method="POST">
+        <label for="date">اسم الحجز:</label>
+      <input type="text" name="name" id="name" required placeholder="اسم الحجز  ">
+      <label for="date">تاريخ الحجز:</label>
+      <input type="date" name="date" id="date" required>
+
+      <label for="location">الموقع:</label>
+      <input type="text" name="location" id="location" placeholder="اسم الملعب أو العنوان" required>
+
+      <button type="submit">إضافة الحجز</button>
+    </form>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('toggle-dark');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark');
+      toggleBtn.textContent = '☀️';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      toggleBtn.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+
+</body>
+</html>

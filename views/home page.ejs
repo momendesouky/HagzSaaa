@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fantasy Hagz | Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 40px;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #00d1ff;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00d1ff;
+    }
+
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 30px;
+      color: #ccc;
+    }
+
+    .hero .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .hero .buttons a {
+      padding: 12px 28px;
+      border-radius: 8px;
+      background: #00d1ff;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .hero .buttons a:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .hero .buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hagz Saaa</h1>
+    <nav>
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Join or Create a Hagz</h2>
+    <p>Compete with your friends by creating a Hagz, managing your fantasy team, and climbing the leaderboard!</p>
+    <div class="buttons">
+      <a href="/register">Get Started</a>
+      <a href="/login">Already a Member</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Fantasy Hagz. All rights reserved.
+  </footer>
+</body>
+</html>

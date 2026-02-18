@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الفرق والمباريات | <%= hagz.name %></title>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #006d77;
+      --accent: #83c5be;
+      --light-bg: #f4f6f8;
+      --dark-gradient: linear-gradient(to bottom right, #0f172a, #1e293b);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+    body {
+      font-family: 'Almarai', sans-serif;
+      margin: 0;
+      background-color: var(--light-bg);
+      color: #333;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    body.dark {
+      background: var(--dark-gradient);
+      color: white;
+    }
+    nav {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    nav h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    body.dark nav h1{
+        color: #00d1ff;
+    }
+    nav a, nav button {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.3s, text-shadow 0.3s, transform 0.2s;
+    }
+    nav a:hover, nav button:hover {
+      color: #ffdd57;
+      text-shadow: 0 0 8px rgba(255, 221, 87, 0.8);
+      transform: translateY(-2px);
+    }
+
+    /* Dark mode navbar */
+    body.dark nav {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    body.dark nav a, 
+    body.dark nav button {
+      color: #e2e8f0;
+    }
+    body.dark nav a:hover, 
+    body.dark nav button:hover {
+      color: #00d1ff;
+      text-shadow: 0 0 8px #00d1ff;
+    }
+    .container {
+       max-width: 1100px;
+     margin: 0 auto;
+     padding: 20px; 
+    }
+    body.dark .container {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 32px rgba(0,0,0,0.3);
+      margin-top: 20px;
+    }
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      text-align: right;
+    }
+    body.dark h2 { color: #00d1ff; }
+    .section {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    body.dark .section {
+      background: var(--glass-bg);
+      box-shadow: 0 0 32px rgba(0,0,0,0.3);
+      color: white;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      background: var(--light-bg);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    body.dark li {
+      background: rgba(255,255,255,0.1);
+    }
+    .empty-message {
+      text-align: center;
+      color: #777;
+      font-style: italic;
+    }
+    body.dark .empty-message { color: #bbb; }
+    .add-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      background-color: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .add-btn:hover {
+      background-color: var(--primary);
+    }
+    body.dark .add-btn {
+      background-color: #00d1ff;
+    }
+    body.dark .add-btn:hover {
+      background-color: #0096c7;
+      box-shadow: 0 0 8px #00d1ff;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>Details</h1>
+    <div>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/addHagz">Add Hagz</a>
+      <button id="toggle-dark">🌙</button>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>الفرق والمباريات - <%= hagz.name %></h2>
+
+    <!-- Teams Section -->
+    <div class="section">
+      <h3>الفرق</h3>
+      <% if (teams && teams.length > 0) { %>
+  <ul>
+    <% teams.forEach(team => { %>
+      <li><span><%= team.name %></span></li>
+    <% }) %>
+    <a class="add-btn" href="/add-team/<%= hagz._id %>">أضف فريق</a></p>
+  </ul>
+<% } else { %>
+  <p>لا يوجد فرق حالياً. <a class = "add-btn" href="/add-team/<%= hagz._id %>">أضف فريق</a></p>
+<% } %>
+    </div>
+
+    <!-- Matches Section -->
+    <div class="section">
+      <h3>المباريات</h3>
+      <% if (matches && matches.length > 0) { %>
+        <ul>
+          <% matches.forEach(match => { %>
+            <li>
+              <span><%= match.teamA.name%> ضد <%= match.teamB.name %></span>
+             
+            </li>
+          <% }) %>
+        </ul>
+        <a class="add-btn" href="/add-match/<%= hagz._id %>">إضافة مباراة</a>
+      <% } else { %>
+        <p class="empty-message">لا توجد مباريات بعد.</p>
+        <a class="add-btn" href="/add-match/<%= hagz._id %>">إضافة مباراة</a>
+      <% } %>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('toggle-dark');
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark');
+      toggleBtn.textContent = '☀️';
+    }
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      toggleBtn.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+
+</body>
+</html>
